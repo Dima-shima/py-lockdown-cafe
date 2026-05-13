@@ -7,14 +7,14 @@ from app.errors import (
 
 
 class Cafe:
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.name = name
 
     def visit_cafe(self, visitor: dict) -> str:
         try:
             expiration_date = visitor["vaccine"]["expiration_date"]
         except KeyError:
-            raise NotVaccinatedError
+            raise NotVaccinatedError("Visitor is not vaccinated")
         today = datetime.date.today()
         if today > expiration_date:
             raise OutdatedVaccineError("Expiration date has expired")
